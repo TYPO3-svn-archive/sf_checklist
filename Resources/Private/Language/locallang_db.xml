@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<!DOCTYPE XML>
+<T3locallang>
+	<meta type="array">
+		<type>database</type>
+		<description>Language labels for database tables/fields belonging to extension 'sfchecklist'</description>
+	</meta>
+
+	<data type="array">
+		<languageKey index="default" type="array">
+			<label index="tt_content.checklist_list">Feuser Checklist</label>
+			<label index="checklist_list.sDEF">Settings</label>
+			<label index="checklist_list.checkType">Type of Button:</label>
+			<label index="checklist_list.checkType.I.0">Checkbox</label>
+			<label index="checklist_list.checkType.I.1">Radiobutton</label>
+			<label index="checklist_list.displayType">Type of item display:</label>
+			<label index="checklist_list.displayType.I.0">as title</label>
+			<label index="checklist_list.displayType.I.1">as single content</label>
+			<label index="checklist_list.itemsFrom">Items from:</label>
+			<label index="checklist_list.itemsFrom.I.0">Records</label>
+			<label index="checklist_list.itemsFrom.I.1">Pages</label>
+			<label index="checklist_list.considerPluginUid">Consider Item</label>
+			<label index="checklist_list.considerPluginUid.I.0">only from this plugin</label>
+			<label index="checklist_list.record">selected records:</label>
+			<label index="checklist_list.tables">Tables to display:</label>
+
+			<label index="tx_sfchecklist_check">Checklistitem checked</label>
+			<label index="tx_sfchecklist_check.fe_user">User</label>
+			<label index="tx_sfchecklist_check.record_id">Content ID</label>
+			<label index="tx_sfchecklist_check.record_table">Content Tabelle</label>
+			<label index="tx_sfchecklist_check.plugin_id">Plugin ID</label>
+		</languageKey>
+
+		<languageKey index="de" type="array">
+			<label index="tt_content.checklist_list">Feuser Checkliste</label>
+			<label index="checklist_list.sDEF">Einstellungen</label>
+			<label index="checklist_list.checkType">Art der Auswahl:</label>
+			<label index="checklist_list.checkType.I.0">Checkbox</label>
+			<label index="checklist_list.checkType.I.1">Radiobutton</label>
+			<label index="checklist_list.displayType">Art der Anzeige:</label>
+			<label index="checklist_list.displayType.I.0">als Titel</label>
+			<label index="checklist_list.displayType.I.1">als einzel Inhalt</label>
+			<label index="checklist_list.itemsFrom">Auswahlen von:</label>
+			<label index="checklist_list.itemsFrom.I.0">Datensätze</label>
+			<label index="checklist_list.itemsFrom.I.1">Seiten</label>
+			<label index="checklist_list.considerPluginUid">Daten berücksichtigen</label>
+			<label index="checklist_list.considerPluginUid.I.0">nur von diesem Plugin</label>
+			<label index="checklist_list.record">ausgewählte Datensätze:</label>
+			<label index="checklist_list.record">anzuzeigende Tabellen:</label>
+
+			<label index="tx_sfchecklist_check">Markierung auf Checkliste</label>
+			<label index="tx_sfchecklist_check.fe_user">Benutzer</label>
+			<label index="tx_sfchecklist_check.record_id">Inhalts ID</label>
+			<label index="tx_sfchecklist_check.record_table">Inhalts Tabelle</label>
+			<label index="tx_sfchecklist_check.plugin_id">Plugin ID</label>
+		</languageKey>
+	</data>
+</T3locallang>

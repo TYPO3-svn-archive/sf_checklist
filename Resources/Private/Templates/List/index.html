@@ -1,0 +1,23 @@
+<div id="checklist">
+	<f:form action="save" name="checklist">
+		<ul>
+			<f:for each="{listitems}" as="listitem">
+				<li>
+					<f:if condition="isempty" value="{listitem.LoggedinUser}" ifid="checkbox"><div class="notloggedin"><f:translate key="lang_notloggedin"/></div></f:if>
+					<f:else ifid="checkbox">
+						<f:for each="{listitem.checkbox}" as="check"><input type="checkbox" name="{check.Name}" {check.Checked} /></f:for>
+					</f:else>
+					{listitem.Label}
+				</li>
+			</f:for>
+		</ul>
+
+		<f:for each="{hiddenValues}" as="hidden">
+			<f:form.hidden name="{hidden.name}" value="{hidden.value}"/>
+		</f:for>
+
+		<f:form.submit id="submitbutton">
+			<f:translate key="lang_submit"/>
+		</f:form.submit>
+	</f:form>
+</div>

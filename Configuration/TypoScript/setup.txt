@@ -1,0 +1,32 @@
+includeLibs.tx_extbase_dispatcher = EXT:extbase/class.tx_extbase_dispatcher.php
+
+plugin.tx_sfchecklist {
+	considerPluginId = 1
+	maxItems = 3
+	List {
+		content.crop = 100
+	}
+}
+
+tt_content.list.20.sf_checklist_list = USER_INT
+tt_content.list.20.sf_checklist_list {
+	# Dispatcher der den aufzurufenden Controller instanziert und ein autoloading anbietet
+	userFunc = tx_extbase_dispatcher->dispatch
+	# PluginKey differenziert wenn mehrere Plugins gleichen Typs auf einer Seite integriert werden
+	pluginKey = list
+	# zu verwendende Extension. UpperCamelCase SfChecklist wird in sf_checklist intern gewandelt
+	extensionName = SfChecklist
+	# zu instanzierdender Controller. Default wenn leer
+	controller = List
+	# standard Action kann durch POST/GET Request überschrieben werden
+	action = index
+	# verfügbare Controller mit zugehörigen Actions
+	switchableControllerActions {
+		10.controller = List
+		10.actions = index,save,delete
+	}
+}
+
+[globalString: GP = sf_checklist_list|controller = List] && [globalString: GP = sf_checklist_list|action = /save|delete/]
+tt_content.list.20.sf_checklist_list = USER_INT
+[global]

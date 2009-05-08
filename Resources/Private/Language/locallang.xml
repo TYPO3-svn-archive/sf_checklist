@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<!DOCTYPE XML>
+<T3locallang>
+	<meta type="array">
+		<type>database</type>
+		<description>Language labels for database tables/fields belonging to extension 'Checklist'</description>
+	</meta>
+
+	<data type="array">
+		<languageKey index="default" type="array">
+			<label index="tt_contentpet_mvc">WoW Pets</label>
+			<label index="lang_submit">save selection</label>
+			<label index="lang_notloggedin">not logged in</label>
+		</languageKey>
+
+		<languageKey index="de" type="array">
+			<label index="tt_contentpet_mvc">WoW Pets</label>
+			<label index="lang_submit">Auswahl speichern</label>
+			<label index="lang_notloggedin">nicht eingeloggt</label>
+		</languageKey>
+	</data>
+</T3locallang>

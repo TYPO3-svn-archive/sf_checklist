@@ -1,0 +1,8 @@
+#ajax_indicator {
+	background: #ffffff url(../Images/ajax-loader.gif) no-repeat top left;
+	display: block;
+	height: 24px;
+	position: absolute;
+	width: 24px;
+	z-index: 10000;
+}
