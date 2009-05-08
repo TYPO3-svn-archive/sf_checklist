@@ -27,6 +27,6 @@ tt_content.list.20.sf_checklist_list {
 	}
 }
 
-[globalString: GP = sf_checklist_list|controller = List] && [globalString: GP = sf_checklist_list|action = /save|delete/]
-tt_content.list.20.sf_checklist_list = USER_INT
+[globalString: GP = tx_sfchecklist_list|controller = List] && [globalString: GP = tx_sfchecklist_list|action = /save|delete/]
+tt_content.list.20.tx_sfchecklist_list = USER_INT
 [global]

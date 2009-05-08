@@ -33,10 +33,10 @@ class Tx_SfChecklist_Domain_Model_Listitem extends Tx_Extbase_DomainObject_Abstr
 
 	public function getLoggedinUser() {
 		if (!empty($GLOBALS['TSFE']->fe_user->user)) {
-			return true;
+			return 'false';
 		}
 
-		return false;
+		return 'true';
 	}
 }
 

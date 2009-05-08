@@ -1,6 +1,6 @@
 <?php
 
-class tx_SfChecklist_Library_TcaFields {
+class Tx_SfChecklist_Library_TcaFields {
 	public function getCheckLabel(&$params, &$pObj) {
 		$feuser_row = $GLOBALS['TYPO3_DB']->exec_SELECTgetRows(
 			$select = 'fe_users.username, tx_sfchecklist_domain_model_check.record_id, tx_sfchecklist_domain_model_check.record_table',
@@ -22,6 +22,9 @@ class tx_SfChecklist_Library_TcaFields {
 
 		$params['title'] = $feuser_row[0]['username'] . ' - ' . $content_row[0]['title'];
 	}
+}
+
+class user_SfChecklist_Library_TcaFields extends Tx_SfChecklist_Library_TcaFields {
 }
 
 if (defined('TYPO3_MODE') && $TYPO3_CONF_VARS[TYPO3_MODE]['XCLASS']['ext/sf_checklist/Classes/Library/TcaFields.php']) {

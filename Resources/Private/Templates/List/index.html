@@ -1,12 +1,16 @@
 <div id="checklist">
-	<f:form action="save" name="checklist">
+	<f:form name="checklist" method="post" controllerName="List" actionName="save" class="checklist-form">
 		<ul>
 			<f:for each="{listitems}" as="listitem">
 				<li>
-					<f:if condition="isempty" value="{listitem.LoggedinUser}" ifid="checkbox"><div class="notloggedin"><f:translate key="lang_notloggedin"/></div></f:if>
-					<f:else ifid="checkbox">
-						<f:for each="{listitem.checkbox}" as="check"><input type="checkbox" name="{check.Name}" {check.Checked} /></f:for>
-					</f:else>
+					<f:if condition="{listitem.LoggedinUser}">
+						<f:then>
+							<div class="notloggedin"><f:translate key="lang_notloggedin"/></div>
+						</f:then>
+						<f:else>
+							<f:for each="{listitem.checkbox}" as="check"><input type="checkbox" name="{check.Name}" {check.Checked} /></f:for>
+						</f:else>
+					</f:if>
 					{listitem.Label}
 				</li>
 			</f:for>
@@ -16,8 +20,6 @@
 			<f:form.hidden name="{hidden.name}" value="{hidden.value}"/>
 		</f:for>
 
-		<f:form.submit id="submitbutton">
-			<f:translate key="lang_submit"/>
-		</f:form.submit>
+		<f:form.submit><f:translate key="lang_submit"/></f:form.submit>
 	</f:form>
 </div>
