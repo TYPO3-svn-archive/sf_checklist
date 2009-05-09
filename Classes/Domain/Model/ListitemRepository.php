@@ -45,7 +45,7 @@ class Tx_SfChecklist_Domain_Model_ListitemRepository extends Tx_Extbase_Persiste
 						$properties['label'] = $row[$GLOBALS['TCA'][$table]['ctrl']['label']];
 
 						$listItem = $dataMapper->reconstituteObject('Tx_SfChecklist_Domain_Model_Listitem', $properties);
-						$listItem->table = $table;
+						$listItem->setTable($table);
 						$objects[] = $listItem;
 					}
 				}
@@ -85,7 +85,7 @@ class Tx_SfChecklist_Domain_Model_ListitemRepository extends Tx_Extbase_Persiste
 						$properties['label'] = $row[$GLOBALS['TCA'][$table]['ctrl']['label']];
 
 						$listItem = $dataMapper->reconstituteObject('Tx_SfChecklist_Domain_Model_Listitem', $properties);
-						$listItem->table = $table;
+						$listItem->setTable($table);
 						$objects[] = $listItem;
 					}
 				}

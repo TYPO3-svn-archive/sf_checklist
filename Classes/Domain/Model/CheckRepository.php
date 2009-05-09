@@ -1,12 +1,14 @@
 <?php
 
 class Tx_SfChecklist_Domain_Model_CheckRepository extends Tx_Extbase_Persistence_Repository {
-	public function findByListitem(Tx_Extbase_DomainObject_AbstractEntity $listItem) {
+	public function findByListitem(Tx_Extbase_DomainObject_AbstractEntity $listitem) {
 		$conditions = array();
 		$conditions['feUser'] = $GLOBALS['TSFE']->fe_user->user['uid'];
-		$conditions['recordId'] = $listItem->getUid();
-		$conditions['recordTable'] = $listItem->table;
-		if ($listItem->controller) {
+		$conditions['recordId'] = $listitem->getUid();
+		$conditions['recordTable'] = $listitem->getTable();
+
+		// TODO das Auslesen ob PluginID berücksichtigt werden soll muss noch umgesetzt werden
+		if ($listitem->controller) {
 			$conditions['pluginId'] = '';
 		}
 
@@ -24,12 +26,43 @@ class Tx_SfChecklist_Domain_Model_CheckRepository extends Tx_Extbase_Persistence
 		return $result;
 	}
 
-	public function addCheck() {
+	public function addCheck($listitem) {
+		$checkbox = $this->findByListitem($listitem);
+		if ($checkbox[0]->getUid() == 0) {
+			$insertData = array(
+				'fe_user' => $GLOBALS['TSFE']->fe_user->user['uid'],
+				'plugin_id' => '',
+				'record_id' => $listitem->getUid(),
+				'record_table' => $listitem->getTable(),
+			);
 
+			// TODO das Auslesen ob PluginID berücksichtigt werden soll muss noch umgesetzt werden
+			if ($listitem->controller) {
+				$insertData['plugin_id'] = '';
+			}
+
+			$GLOBALS['TYPO3_DB']->exec_INSERTquery(
+				'tx_sfchecklist_domain_model_check',
+				$insertData
+			);
+		}
 	}
 
-	public function removeCheck() {
+	public function removeCheck($listitem) {
+		$checkbox = $this->findByListitem($listitem);
 
+		$where = 'uid = ' . $checkbox[0]->getUid();
+		// TODO das Auslesen ob PluginID berücksichtigt werden soll muss noch umgesetzt werden
+		if ($listitem->controller) {
+			$insertData['plugin_id'] = '';
+		}
+
+		if ($checkbox[0]->getUid() > 0) {
+			$GLOBALS['TYPO3_DB']->exec_DELETEquery(
+				'tx_sfchecklist_domain_model_check',
+				$where
+			);
+		}
 	}
 }
 

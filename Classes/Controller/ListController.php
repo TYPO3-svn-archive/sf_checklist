@@ -53,21 +53,29 @@ class Tx_SfChecklist_Controller_ListController extends Tx_Extbase_MVC_Controller
 		}
 
 		$this->view->assign('hiddenValues', $hiddenValues);
+		$this->view->assign('loggedinUser', $this->getLoggedinUser());
 	}
 
 	public function saveAction() {
 		$records = $this->listitemRepository->findBySettings($this->settings);
+		$checks = $this->request->getArgument('check');
 		foreach ($records as $listItem) {
-			if ($check) {
+			if (isset($checks[$listItem->getTable()][$listItem->getUid()])) {
 				$listItem->addCheck();
 			} else {
 				$listItem->removeCheck();
 			}
 		}
 
-debug($this->request->getArguments());
-print_r('das speichern muss noch implementiert werden');
-		//$this->redirect('index');
+		$this->redirect('index');
+	}
+
+	public function getLoggedinUser() {
+		if (!empty($GLOBALS['TSFE']->fe_user->user)) {
+			return 'true';
+		}
+
+		return 'false';
 	}
 }
 

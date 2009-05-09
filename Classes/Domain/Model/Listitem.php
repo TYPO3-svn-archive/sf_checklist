@@ -1,52 +1,74 @@
 <?php
 
 class Tx_SfChecklist_Domain_Model_Listitem extends Tx_Extbase_DomainObject_AbstractEntity {
-	public $table;
+	/**
+	 * @var string the tablename
+	 */
+	protected $table;
 
 	/**
-	 * @var string The pid
+	 * @var integer the pid
 	 */
 	protected $pid;
 
+	/**
+	 * @var integer the uid
+	 */
 	protected $uid;
 
 	/**
-	 * @var string defines what field should be renderd as lable
+	 * @var string defines what field should be renderd as label
 	 */
 	protected $label;
 
-	protected $username;
+	#protected $username;
 
+	/**
+	 * @var Tx_SfChecklist_Domain_Model_CheckRepository repository to get checkbox from
+	 */
 	protected $checkRepository;
 
 	protected function initializeObject() {
 		$this->checkRepository = t3lib_div::makeInstance('Tx_SfChecklist_Domain_Model_CheckRepository');
 	}
 
-	public function getLabel() {
-		return $this->label;
-	}
-
 	public function getCheckbox() {
 		return $this->checkRepository->findByListitem($this);
 	}
 
-	public function getLoggedinUser() {
-		if (!empty($GLOBALS['TSFE']->fe_user->user)) {
-			return 'false';
-		}
+	/**
+	 * Getter for label
+	 *
+	 * @return string
+	 */
+	public function getLabel() {
+		return $this->label;
+	}
 
-		return 'true';
+	/**
+	 * Getter for tablename
+	 *
+	 * @return string
+	 */
+	public function setTable($value) {
+		return $this->table = $value;
+	}
+
+	/**
+	 * Getter for tablename
+	 *
+	 * @return string
+	 */
+	public function getTable() {
+		return $this->table;
 	}
 
 	public function addCheck() {
-		$this->checkRepository->addCheck();
-debug('add check for ' . $this->uid);
+		$this->checkRepository->addCheck($this);
 	}
 
 	public function removeCheck() {
-		$this->checkRepository->removeCheck();
-debug('remove check for ' . $this->uid);
+		$this->checkRepository->removeCheck($this);
 	}
 }
 
