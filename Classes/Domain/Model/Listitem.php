@@ -1,6 +1,8 @@
 <?php
 
 class Tx_SfChecklist_Domain_Model_Listitem extends Tx_Extbase_DomainObject_AbstractEntity {
+	protected $settings = array();
+
 	/**
 	 * @var string the tablename
 	 */
@@ -32,7 +34,12 @@ class Tx_SfChecklist_Domain_Model_Listitem extends Tx_Extbase_DomainObject_Abstr
 		$this->checkRepository = t3lib_div::makeInstance('Tx_SfChecklist_Domain_Model_CheckRepository');
 	}
 
+	public function setSettings($settings) {
+		$this->settings = $settings;
+	}
+
 	public function getCheckbox() {
+		$this->checkRepository->setSettings($this->settings);
 		return $this->checkRepository->findByListitem($this);
 	}
 
@@ -64,10 +71,12 @@ class Tx_SfChecklist_Domain_Model_Listitem extends Tx_Extbase_DomainObject_Abstr
 	}
 
 	public function addCheck() {
+		$this->checkRepository->setSettings($this->settings);
 		$this->checkRepository->addCheck($this);
 	}
 
 	public function removeCheck() {
+		$this->checkRepository->setSettings($this->settings);
 		$this->checkRepository->removeCheck($this);
 	}
 }

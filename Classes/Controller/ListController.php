@@ -37,6 +37,10 @@ class Tx_SfChecklist_Controller_ListController extends Tx_Extbase_MVC_Controller
 	 */
 	public function initializeAction() {
 		$this->listitemRepository = t3lib_div::makeInstance('Tx_SfChecklist_Domain_Model_ListitemRepository');
+		// TODO pluginId aus pObj->data['uid'] nehmen
+		$this->settings['pluginId'] = '8';
+		// TODO setSettings in CheckRepository, ListitemRepository und ListItem checken
+		$this->listitemRepository->setSettings($this->settings);
 	}
 
 	/**
@@ -48,17 +52,21 @@ class Tx_SfChecklist_Controller_ListController extends Tx_Extbase_MVC_Controller
 		$this->view->assign('listitems', $this->listitemRepository->findBySettings($this->settings));
 
 		$hiddenValues = array(array('name' => 'saved', 'value' => 1));
-		if (isset($this->settings['considerPluginId'])) {
-			$hiddenValues[] = array('name' => 'pluginid', 'value' => 1);
-		}
 
-		$this->view->assign('hiddenValues', $hiddenValues);
-		$this->view->assign('loggedinUser', $this->getLoggedinUser());
+		$this->view
+			->assign('hiddenValues', $hiddenValues)
+			->assign('loggedinUser', $this->getLoggedinUser());
 	}
 
+	/**
+	 * Save checks
+	 *
+	 * @return void
+	 */
 	public function saveAction() {
 		$records = $this->listitemRepository->findBySettings($this->settings);
 		$checks = $this->request->getArgument('check');
+
 		foreach ($records as $listItem) {
 			if (isset($checks[$listItem->getTable()][$listItem->getUid()])) {
 				$listItem->addCheck();
@@ -70,6 +78,11 @@ class Tx_SfChecklist_Controller_ListController extends Tx_Extbase_MVC_Controller
 		$this->redirect('index');
 	}
 
+	/**
+	 * Edits an existing post
+	 *
+	 * @return boolean Form for editing the existing post
+	 */
 	public function getLoggedinUser() {
 		if (!empty($GLOBALS['TSFE']->fe_user->user)) {
 			return 'true';

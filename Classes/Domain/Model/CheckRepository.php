@@ -1,15 +1,20 @@
 <?php
 
 class Tx_SfChecklist_Domain_Model_CheckRepository extends Tx_Extbase_Persistence_Repository {
+	protected $settings = array();
+
+	public function setSettings($settings) {
+		$this->settings = $settings;
+	}
+
 	public function findByListitem(Tx_Extbase_DomainObject_AbstractEntity $listitem) {
 		$conditions = array();
 		$conditions['feUser'] = $GLOBALS['TSFE']->fe_user->user['uid'];
 		$conditions['recordId'] = $listitem->getUid();
 		$conditions['recordTable'] = $listitem->getTable();
 
-		// TODO das Auslesen ob PluginID berücksichtigt werden soll muss noch umgesetzt werden
-		if ($listitem->controller) {
-			$conditions['pluginId'] = '';
+		if ($this->settings['considerPluginUid']) {
+			$conditions['pluginId'] = $this->settings['pluginId'];
 		}
 
 		$result = $this->findByConditions($conditions);
@@ -31,14 +36,13 @@ class Tx_SfChecklist_Domain_Model_CheckRepository extends Tx_Extbase_Persistence
 		if ($checkbox[0]->getUid() == 0) {
 			$insertData = array(
 				'fe_user' => $GLOBALS['TSFE']->fe_user->user['uid'],
-				'plugin_id' => '',
+				'plugin_id' => 0,
 				'record_id' => $listitem->getUid(),
 				'record_table' => $listitem->getTable(),
 			);
 
-			// TODO das Auslesen ob PluginID berücksichtigt werden soll muss noch umgesetzt werden
-			if ($listitem->controller) {
-				$insertData['plugin_id'] = '';
+			if ($this->settings['considerPluginUid']) {
+				$insertData['plugin_id'] = $this->settings['pluginId'];
 			}
 
 			$GLOBALS['TYPO3_DB']->exec_INSERTquery(
@@ -52,9 +56,9 @@ class Tx_SfChecklist_Domain_Model_CheckRepository extends Tx_Extbase_Persistence
 		$checkbox = $this->findByListitem($listitem);
 
 		$where = 'uid = ' . $checkbox[0]->getUid();
-		// TODO das Auslesen ob PluginID berücksichtigt werden soll muss noch umgesetzt werden
-		if ($listitem->controller) {
-			$insertData['plugin_id'] = '';
+
+		if ($this->settings['considerPluginUid'] && $this->settings['pluginId'] != '') {
+			$where .= ' AND plugin_id = ' . $this->settings['pluginId'];
 		}
 
 		if ($checkbox[0]->getUid() > 0) {

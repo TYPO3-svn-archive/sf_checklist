@@ -1,7 +1,7 @@
 includeLibs.tx_extbase_dispatcher = EXT:extbase/class.tx_extbase_dispatcher.php
 
 plugin.tx_sfchecklist {
-	considerPluginId = 1
+	#considerPluginUid = 1
 	maxItems = 3
 	List {
 		content.crop = 100

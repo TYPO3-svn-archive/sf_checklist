@@ -3,6 +3,12 @@
 require_once(PATH_tslib . 'class.tslib_content.php');
 
 class Tx_SfChecklist_Domain_Model_ListitemRepository extends Tx_Extbase_Persistence_Repository {
+	protected $settings = array();
+
+	public function setSettings($settings) {
+		$this->settings = $settings;
+	}
+
 	public function findBySettings(array $settings) {
 		if (!is_object($this->cObj)) {
 			$this->cObj = t3lib_div::makeInstance('tslib_cObj');
@@ -45,7 +51,9 @@ class Tx_SfChecklist_Domain_Model_ListitemRepository extends Tx_Extbase_Persiste
 						$properties['label'] = $row[$GLOBALS['TCA'][$table]['ctrl']['label']];
 
 						$listItem = $dataMapper->reconstituteObject('Tx_SfChecklist_Domain_Model_Listitem', $properties);
+						$listItem->setSettings($this->settings);
 						$listItem->setTable($table);
+
 						$objects[] = $listItem;
 					}
 				}
@@ -85,7 +93,9 @@ class Tx_SfChecklist_Domain_Model_ListitemRepository extends Tx_Extbase_Persiste
 						$properties['label'] = $row[$GLOBALS['TCA'][$table]['ctrl']['label']];
 
 						$listItem = $dataMapper->reconstituteObject('Tx_SfChecklist_Domain_Model_Listitem', $properties);
+						$listItem->setSettings($this->settings);
 						$listItem->setTable($table);
+
 						$objects[] = $listItem;
 					}
 				}

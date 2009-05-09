@@ -3,10 +3,10 @@
 		<ul>
 		<f:for each="{listitems}" as="listitem">
 			<li>
-			<f:if condition="{loggedinUser}">
-				<f:then><f:for each="{listitem.checkbox}" as="check"><input type="checkbox" name="tx_sfchecklist_list[check][{check.RecordTable}][{check.RecordId}]" {check.Checked} /></f:for></f:then>
-				<f:else><div class="notloggedin"><f:translate key="lang_notloggedin"/></div></f:else>
-			</f:if>
+				<f:if condition="{loggedinUser}">
+					<f:then><f:for each="{listitem.checkbox}" as="check"><input type="checkbox" name="tx_sfchecklist_list[check][{check.RecordTable}][{check.RecordId}]" {check.Checked} /></f:for></f:then>
+					<f:else><div class="notloggedin"><f:translate key="lang_notloggedin"/></div></f:else>
+				</f:if>
 				{listitem.Label}
 			</li>
 		</f:for>
