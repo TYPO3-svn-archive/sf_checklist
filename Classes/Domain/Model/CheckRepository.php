@@ -23,6 +23,14 @@ class Tx_SfChecklist_Domain_Model_CheckRepository extends Tx_Extbase_Persistence
 
 		return $result;
 	}
+
+	public function addCheck() {
+
+	}
+
+	public function removeCheck() {
+
+	}
 }
 
 if (defined('TYPO3_MODE') && $TYPO3_CONF_VARS[TYPO3_MODE]['XCLASS']['ext/sf_checklist/Classes/Domain/Model/CheckRepository.php']) {

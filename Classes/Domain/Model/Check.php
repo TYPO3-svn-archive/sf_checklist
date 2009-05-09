@@ -15,13 +15,12 @@ class Tx_SfChecklist_Domain_Model_Check extends Tx_Extbase_DomainObject_Abstract
 		return $this->feUser;
 	}
 
-	public function getName() {
-		$name = array(
-			$this->recordTable,
-			$this->recordId,
-		);
+	public function getRecordId() {
+		return $this->recordId;
+	}
 
-		return implode('_', $name);
+	public function getRecordTable() {
+		return $this->recordTable;
 	}
 
 	public function getChecked() {

@@ -56,9 +56,17 @@ class Tx_SfChecklist_Controller_ListController extends Tx_Extbase_MVC_Controller
 	}
 
 	public function saveAction() {
-		$this->saved = true;
+		$records = $this->listitemRepository->findBySettings($this->settings);
+		foreach ($records as $listItem) {
+			if ($check) {
+				$listItem->addCheck();
+			} else {
+				$listItem->removeCheck();
+			}
+		}
 
-print_r('das speichern muss noch implementiert ');
+debug($this->request->getArguments());
+print_r('das speichern muss noch implementiert werden');
 		//$this->redirect('index');
 	}
 }

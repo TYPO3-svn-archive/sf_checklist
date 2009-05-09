@@ -38,6 +38,16 @@ class Tx_SfChecklist_Domain_Model_Listitem extends Tx_Extbase_DomainObject_Abstr
 
 		return 'true';
 	}
+
+	public function addCheck() {
+		$this->checkRepository->addCheck();
+debug('add check for ' . $this->uid);
+	}
+
+	public function removeCheck() {
+		$this->checkRepository->removeCheck();
+debug('remove check for ' . $this->uid);
+	}
 }
 
 if (defined('TYPO3_MODE') && $TYPO3_CONF_VARS[TYPO3_MODE]['XCLASS']['ext/sf_checklist/Classes/Domain/Model/Listitem.php']) {
