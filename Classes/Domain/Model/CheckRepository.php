@@ -61,7 +61,10 @@ class Tx_SfChecklist_Domain_Model_CheckRepository extends Tx_Extbase_Persistence
 				'fe_user' => $GLOBALS['TSFE']->fe_user->user['uid'],
 				'plugin_id' => 0,
 				'record_id' => $listitem->getUid(),
-				'record_table' => $listitem->getTable(),
+				'record_table' => $GLOBALS['TYPO3_DB']->fullQuoteStr(
+					$listitem->getTable(),
+					'tx_sfchecklist_domain_model_check'
+				),
 			);
 
 			if ($this->settings['considerPluginUid']) {

@@ -3,7 +3,7 @@
 <T3locallang>
 	<meta type="array">
 		<type>database</type>
-		<description>Language labels for database tables/fields belonging to extension 'Checklist'</description>
+		<description>Language labels for database tables/fields belonging to extension 'sf_checklist'</description>
 	</meta>
 
 	<data type="array">

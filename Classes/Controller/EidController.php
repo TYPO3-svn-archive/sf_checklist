@@ -72,7 +72,10 @@ class TX_SfChecklist_Controller_EidController {
 		$this->settings = array(
 			'fe_user' => (int) $GLOBALS['TSFE']->fe_user->user['uid'],
 			'record_id' => (int) $uid,
-			'record_table' => $this->secureString($table),
+			'record_table' => $GLOBALS['TYPO3_DB']->fullQuoteStr(
+				$this->secureString($table),
+				'tx_sfchecklist_domain_model_check'
+			),
 			'plugin_id' => (int) $this->request['pluginid'],
 		);
 
