@@ -28,31 +28,35 @@ require_once(PATH_tslib . 'class.tslib_content.php');
 class Tx_SfChecklist_Domain_Model_ListitemRepository extends Tx_Extbase_Persistence_Repository {
 	protected $settings = array();
 
+	/**
+	 * @param array settings given by ts / flexform
+	 * @return void
+	 */
 	public function setSettings($settings) {
 		$this->settings = $settings;
 	}
 
-	public function findBySettings(array $settings) {
+	public function findBySettings() {
 		if (!is_object($this->cObj)) {
 			$this->cObj = t3lib_div::makeInstance('tslib_cObj');
 		}
 
-		switch ($settings['source']) {
+		switch ($this->settings['source']) {
 			case 'pages':
-				return $this->findByPages($settings);
+				return $this->findByPages();
 				break;
 			case 'records':
-				return $this->findByRecords($settings['records']);
+				return $this->findByRecords();
 				break;
 		}
 	}
 
-	public function findByPages(array $settings) {
+	public function findByPages() {
 		$objects = array();
 		$dataMapper = t3lib_div::makeInstance('Tx_Extbase_Persistence_Mapper_ObjectRelationalMapper');
-		$pidList = $this->getPidlistRecurcive($settings['pages'], $settings['recursive']);
+		$pidList = $this->getPidlistRecurcive($this->settings['pages'], $this->settings['recursive']);
 
-		$tables = explode(',', $settings['tables']);
+		$tables = explode(',', $this->settings['tables']);
 		if (count($tables) > 0) {
 			foreach($tables as $table) {
 				$where = 'pid in (' . $pidList . ')';
@@ -85,11 +89,11 @@ class Tx_SfChecklist_Domain_Model_ListitemRepository extends Tx_Extbase_Persiste
 		return $objects;
 	}
 
-	public function findByRecords($recordList) {
+	public function findByRecords() {
 		$objects = array();
 		$dataMapper = t3lib_div::makeInstance('Tx_Extbase_Persistence_Mapper_ObjectRelationalMapper');
 
-		$records = explode(',', $recordList);
+		$records = explode(',', $settings['records']);
 		if (count($records) > 0) {
 			foreach($records as $record) {
 				$recordParts = explode('_', $record);

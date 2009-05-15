@@ -49,7 +49,7 @@ class Tx_SfChecklist_Controller_ListController extends Tx_Extbase_MVC_Controller
 	 * @return string The rendered view
 	 */
 	public function indexAction() {
-		$this->view->assign('listitems', $this->listitemRepository->findBySettings($this->settings));
+		$this->view->assign('listitems', $this->listitemRepository->findBySettings());
 
 		$hiddenValues = array(array('name' => 'saved', 'value' => 1));
 		if ($this->settings['considerPluginUid'] = 1) {
