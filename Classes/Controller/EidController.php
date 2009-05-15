@@ -50,7 +50,7 @@ class TX_SfChecklist_Controller_EidController {
 	/**
 	 * @var boolean
 	 */
-	protected $debug = false;
+	protected $debug = true;
 
 	/**
 	 * initialize needed variables and objects
@@ -72,22 +72,12 @@ class TX_SfChecklist_Controller_EidController {
 		$this->settings = array(
 			'fe_user' => (int) $GLOBALS['TSFE']->fe_user->user['uid'],
 			'record_id' => (int) $uid,
-			'record_table' => $GLOBALS['TYPO3_DB']->fullQuoteStr(
-				$this->secureString($table),
-				'tx_sfchecklist_domain_model_check'
-			),
+			'record_table' => $table,
 			'plugin_id' => (int) $this->request['pluginid'],
 		);
 
 		if ($this->debug) {
-			debug($this->settings);
 			$GLOBALS['TYPO3_DB']->debugOutput = 1;
-		} else {
-			$this->out['debug'] =
-				$this->settings['fe_user'] . "\n" .
-				$this->settings['record_id'] . "\n" .
-				$this->settings['record_table'] . "\n" .
-				$this->settings['plugin_id'] . "\n";
 		}
 	}
 
@@ -112,9 +102,6 @@ class TX_SfChecklist_Controller_EidController {
 			$this->out['err'] = 'ups nothing done';
 		}
 
-		if (!$this->debug) {
-			header('Content-type: application/x-json');
-		}
 		echo json_encode($this->out);
 		die();
 	}
@@ -130,9 +117,8 @@ class TX_SfChecklist_Controller_EidController {
 
 		if (empty($existingChecks[0])) {
 			$insertData = $this->settings;
-
 			$GLOBALS['TYPO3_DB']->exec_INSERTquery(
-				'tx_sfchecklist_domain_model_check',
+				$table = 'tx_sfchecklist_domain_model_check',
 				$insertData
 			);
 
@@ -175,7 +161,10 @@ class TX_SfChecklist_Controller_EidController {
 		$where = array(
 			'fe_user = ' . $this->settings['fe_user'],
 			'record_id = ' . $this->settings['record_id'],
-			'record_table = \'' . $this->settings['record_table'] .'\'',
+			'record_table = ' . $GLOBALS['TYPO3_DB']->fullQuoteStr(
+				$this->settings['record_table'],
+				'tx_sfchecklist_domain_model_check'
+			),
 		);
 		/*
 		 *  TODO macht das Sinn auf plugin_id nur dann zu prüfen wenn eine gesetzt ist?
@@ -203,7 +192,8 @@ class TX_SfChecklist_Controller_EidController {
 	 * @return string
 	 */
 	protected function secureString($string) {
-		return preg_replace("/[^a-zA-Z0-9_]/", '', $string);
+		$string = preg_replace("/[^a-zA-Z0-9_]/", '', $string);
+		return str_replace('\'', '', $string);
 	}
 }
 
